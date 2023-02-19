@@ -1,5 +1,9 @@
 import tkinter
 from tkinter import *
+import os
+import numpy as np
+import random
+import matplotlib.pyplot as plt
 
 window = Tk()
 window.title("IA-TRABALHO-GRUPO-ESDRAS-JOAO-OTAVIO-FELIPE MENDES")
@@ -12,6 +16,11 @@ form_label_tolerated_error = tkinter.Label(window, text="Digite o Erro Tolerado:
 input_taxa = tkinter.Entry(window)
 input_tolerated_error = tkinter.Entry(window)
 
+os.chdir(r'/home/esdras/Documents/PROJETOS PESSOAIS/IA/IA-Adaline-letter-recognizer')
+
+x=np.loadtxt('letterArrayValues.txt')
+(samples, inputs)=np.shape(x)
+
 
 def submit_button_event():
     taxa = input_taxa.get()
@@ -20,7 +29,6 @@ def submit_button_event():
     print(tolerated_error)
     # logica do submit
 
-
 def test_button_event():
     for i, row in enumerate(checkboxes):
         for j, var in enumerate(row):
@@ -28,20 +36,24 @@ def test_button_event():
                 print("CheckBox %d,%d está selecionado" % (i, j))
                 # LOGICA DO SELECIONADO
 
-
-def on_select(value):
+def on_select(value,checkboxes,x):
     print("Selecionado:", value)
-
+    index = options.index(value)
+    print(index)
+    row_values = x[index, :]
+    print("SELECIONAVEIS DO ROW VALUES",row_values)
+    k=0
+    for i in range(9):
+        for j in range(7):
+            print(checkboxes[i][j].get());
+            if(row_values[k]==1.0):
+                checkboxes[i][j].set(1)
+            else:
+                checkboxes[i][j].set(0)
+            print("K",k)
+            k=k+1
 
 submit_button = tkinter.Button(window, text="Realizar Aprendizado", command=submit_button_event)
-
-options = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D1', 'D2', 'D3', 'E1', 'E2', 'E3', 'J1', 'J2', 'J3',
-           'K1', 'K2', 'K3']
-
-variable = tkinter.StringVar()
-option_menu = tkinter.OptionMenu(window, variable, *options)
-variable.trace("w", lambda name, index, mode, variable=variable: on_select(variable.get()))
-option_menu.place(x=250, y=200)
 
 form_label_taxa.place(x=100, y=50)
 input_taxa.place(x=350, y=50)
@@ -61,5 +73,12 @@ for i in range(9):
 
 button_test = tkinter.Button(window, text="Realizar Teste", command=test_button_event)
 button_test.place(x=5 + j * 60, y=200 + i * 30)
+options = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D1', 'D2', 'D3', 'E1', 'E2', 'E3', 'J1', 'J2', 'J3',
+           'K1', 'K2', 'K3']
+
+variable = tkinter.StringVar()
+option_menu = tkinter.OptionMenu(window, variable, *options)
+variable.trace("w", lambda name, index, mode, variable=variable: on_select(variable.get(),checkboxes,x))
+option_menu.place(x=250, y=200)
 
 window.mainloop()
