@@ -28,26 +28,20 @@ def test_button_event():
                 print("CheckBox %d,%d está selecionado" % (i, j))
                 # LOGICA DO SELECIONADO
 
+
 def on_select(value):
     print("Selecionado:", value)
 
 
 submit_button = tkinter.Button(window, text="Realizar Aprendizado", command=submit_button_event)
 
+options = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D1', 'D2', 'D3', 'E1', 'E2', 'E3', 'J1', 'J2', 'J3',
+           'K1', 'K2', 'K3']
 
-
-
-options = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D1', 'D2', 'D3', 'E1', 'E2', 'E3', 'J1', 'J2', 'J3', 'K1', 'K2', 'K3']
-
-# Crie o menu suspenso
 variable = tkinter.StringVar()
-
 option_menu = tkinter.OptionMenu(window, variable, *options)
-
 variable.trace("w", lambda name, index, mode, variable=variable: on_select(variable.get()))
-
 option_menu.place(x=250, y=200)
-
 
 form_label_taxa.place(x=100, y=50)
 input_taxa.place(x=350, y=50)
