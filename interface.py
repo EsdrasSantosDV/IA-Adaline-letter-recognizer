@@ -30,27 +30,28 @@ def submit_button_event():
     # logica do submit
 
 def test_button_event():
+    selectedchecks=[]
     for i, row in enumerate(checkboxes):
         for j, var in enumerate(row):
-            if var.get() == 1:
-                print("CheckBox %d,%d está selecionado" % (i, j))
-                # LOGICA DO SELECIONADO
+            if checkboxes[i][j].get() ==0:
+                selectedchecks.append(-1)
+            else:
+                selectedchecks.append(1)
+
+
+
 
 def on_select(value,checkboxes,x):
-    print("Selecionado:", value)
     index = options.index(value)
-    print(index)
     row_values = x[index, :]
-    print("SELECIONAVEIS DO ROW VALUES",row_values)
+
     k=0
     for i in range(9):
         for j in range(7):
-            print(checkboxes[i][j].get());
             if(row_values[k]==1.0):
                 checkboxes[i][j].set(1)
             else:
                 checkboxes[i][j].set(0)
-            print("K",k)
             k=k+1
 
 submit_button = tkinter.Button(window, text="Realizar Aprendizado", command=submit_button_event)
