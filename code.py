@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 ## READ TXT ARCHIVES THAT CONTAINS THE VALUES AND RESULTS ##
 #TODO: HERE YOU NEED TO PUT THE ABSOLUTE PATH WHERE IS THE DIRECTORY OF "IA-Adaline-letter-recognizer"
-os.chdir(r'')
+os.chdir(r'C:\Users\joao_\Desktop\FACUL 2023\IA\Trabalhos\trab2\IA-Adaline-letter-recognizer')
 
 x=np.loadtxt('letterArrayValues.txt')
 (samples, inputs)=np.shape(x)
@@ -15,8 +15,8 @@ target=np.loadtxt('results.txt')
 
 ## SPECIFY THE PARAMETERS OS THE LERNING STEP ##
 threshold=0.0
-alpha=0.0001
-toleratedError=0.0000001
+alpha=0.001
+toleratedError=0.0001
 
 ## CREATE VARIABLES OF PLOT, WEIGHTS, OUTPUTS, ERROR AND CYCLE ##
 chartCycleAxis = []
@@ -54,7 +54,7 @@ while error>toleratedError:
             for k in range(inputs):
                 #the sum to be used to determinate the output index
                 sum=sum+Xaux[k]*v[k][j]
-            #The output input index that is determinated by the sum plus the bias
+            #The initial input index that is determinated by the sum plus the bias
             yin[j]=sum+v0[j]
 
         for j in range(numResults):
@@ -97,12 +97,47 @@ while error>toleratedError:
     plt.plot(chartCycleAxis, chartErrorAxis)
     plt.draw()
 
+#Variable that contains the row of array that was tested
+letterTest = x[15, :]
+for iTest in range(numResults):
+    sum=0
+    for jTest in range(inputs):
+        #the sum to be used to determinate the output index
+        sum=sum+letterTest[jTest]*v[jTest][iTest]
+    #The initial input index that is determinated by the sum plus the bias
+    yin[iTest]=sum+v0[iTest]
+for j in range(numResults):
+    # Y -> the output index that is compared with treshold. 
+    if yin[j]>=threshold:
+        y[j]=1.0
+    else:
+        y[j]=-1.0
+
+# RESULT LOGS
+print("\nARRAY DE RECONHECIMENTO:")
+print(y)
+
+print()
+if y[0]==1:
+    print("A LETRA RECONHECIDA FOI A LETRA: A")
+if y[1]==1:
+    print("A LETRA RECONHECIDA FOI A LETRA: B")
+if y[2]==1:
+    print("A LETRA RECONHECIDA FOI A LETRA: C")
+if y[3]==1:
+    print("A LETRA RECONHECIDA FOI A LETRA: D")
+if y[4]==1:
+    print("A LETRA RECONHECIDA FOI A LETRA: E")
+if y[5]==1:
+    print("A LETRA RECONHECIDA FOI A LETRA: J")
+if y[6]==1:
+    print("A LETRA RECONHECIDA FOI A LETRA: K")
+    
+#Make the graph stay static in screen
 plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
 plt.xlabel('cycle')
 plt.ylabel('error')
 plt.show()
-    
-
 
             
         
