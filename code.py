@@ -84,21 +84,21 @@ class IALetterReconizer:
             chartCycleAxis.append(cycle)
             chartErrorAxis.append(error)
 
-            ## Plotting the value ##
-            # plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
-            # plt.xlabel('cycle')
-            # plt.ylabel('error')
+            # Plotting the value ##
+            plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
+            plt.xlabel('cycle')
+            plt.ylabel('error')
 
-            # plt.pause(0.0001)
-            # plt.clf()
-            # plt.plot(chartCycleAxis, chartErrorAxis)
-            # plt.draw()
+            plt.pause(0.0001)
+            plt.clf()
+            plt.plot(chartCycleAxis, chartErrorAxis)
+            plt.draw()
 
-        # Make the graph stay static in screen
-        # plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
-        # plt.xlabel('cycle')
-        # plt.ylabel('error')
-        # plt.show()
+
+        plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
+        plt.xlabel('cycle')
+        plt.ylabel('error')
+        plt.show()
 
     def testIA(self, letterTest):
         yin = np.zeros((self.numResults, 1))
@@ -140,9 +140,9 @@ class IALetterReconizer:
         else:
             print("NÃO FOI POSSÍVEL RECONHECER NENHUMA LETRA")
 
-teste = IALetterReconizer(0.0, 0.001, 0.0001)
+teste = IALetterReconizer()
 teste.trainAI(0.001, 0.0001)
-teste.testIA(teste.x[1, :])
+teste.testIA(teste.x[3, :])
 
 
 ########################################################## TRAINING ##########################################################
