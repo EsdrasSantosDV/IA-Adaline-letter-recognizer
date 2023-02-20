@@ -4,6 +4,7 @@ import os
 import numpy as np
 import random
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class IALetterReconizer:
     def __init__(self):
@@ -22,6 +23,9 @@ class IALetterReconizer:
 
         yin = np.zeros((self.numResults, 1))
         y = np.zeros((self.numResults, 1))
+        fig = plt.figure()
+        canvas = FigureCanvasTkAgg(fig, master=window)
+        canvas.draw()
 
         error = 5
         cycle = 0
@@ -86,19 +90,19 @@ class IALetterReconizer:
             chartErrorAxis.append(error)
 
             # Plotting the value ##
-            plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
-            plt.xlabel('cycle')
-            plt.ylabel('error')
-
-            plt.pause(0.0001)
             plt.clf()
             plt.plot(chartCycleAxis, chartErrorAxis)
-            plt.draw()
+            label = tkinter.Label(window, text="GRÁFICO", font=('Arial', 14))
+            label.place(x=975, y=150)
+            # Atualizando o canvas do gráfico
+            canvas.draw()
+            canvas.get_tk_widget().place(x=700,y=200)
 
-        plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
-        plt.xlabel('cycle')
-        plt.ylabel('error')
-        plt.show()
+            # Atualizando o loop
+            window.update_idletasks()
+            window.update()
+
+
 
     def testIA(self, letterTest):
         yin = np.zeros((self.numResults, 1))
@@ -141,7 +145,7 @@ class IALetterReconizer:
             mensagem = "NÃO FOI POSSÍVEL RECONHECER NENHUMA LETRA"
 
         label = tkinter.Label(window, text=mensagem, font=('Arial', 14))
-        label.place(x=250, y=500)
+        label.place(x=235, y=500)
 def submit_button_event():
     taxa =  float(input_taxa.get())
     tolerated_error = float(input_tolerated_error.get())
