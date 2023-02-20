@@ -85,21 +85,20 @@ class IALetterReconizer:
             chartCycleAxis.append(cycle)
             chartErrorAxis.append(error)
 
-            ## Plotting the value ##
-            # plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
-            # plt.xlabel('cycle')
-            # plt.ylabel('error')
+            # Plotting the value ##
+            plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
+            plt.xlabel('cycle')
+            plt.ylabel('error')
 
-            # plt.pause(0.0001)
-            # plt.clf()
-            # plt.plot(chartCycleAxis, chartErrorAxis)
-            # plt.draw()
+            plt.pause(0.0001)
+            plt.clf()
+            plt.plot(chartCycleAxis, chartErrorAxis)
+            plt.draw()
 
-        # Make the graph stay static in screen
-        # plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
-        # plt.xlabel('cycle')
-        # plt.ylabel('error')
-        # plt.show()
+        plt.scatter(chartCycleAxis, chartErrorAxis, marker='.', color='red')
+        plt.xlabel('cycle')
+        plt.ylabel('error')
+        plt.show()
 
     def testIA(self, letterTest):
         yin = np.zeros((self.numResults, 1))
@@ -125,22 +124,24 @@ class IALetterReconizer:
 
         print()
         if y[0] == 1:
-            print("A LETRA RECONHECIDA FOI A LETRA: A")
+            mensagem = "A LETRA RECONHECIDA FOI A LETRA: A"
         elif y[1] == 1:
-            print("A LETRA RECONHECIDA FOI A LETRA: B")
+            mensagem = "A LETRA RECONHECIDA FOI A LETRA: B"
         elif y[2] == 1:
-            print("A LETRA RECONHECIDA FOI A LETRA: C")
+            mensagem = "A LETRA RECONHECIDA FOI A LETRA: C"
         elif y[3] == 1:
-            print("A LETRA RECONHECIDA FOI A LETRA: D")
+            mensagem = "A LETRA RECONHECIDA FOI A LETRA: D"
         elif y[4] == 1:
-            print("A LETRA RECONHECIDA FOI A LETRA: E")
+            mensagem = "A LETRA RECONHECIDA FOI A LETRA: E"
         elif y[5] == 1:
-            print("A LETRA RECONHECIDA FOI A LETRA: J")
+            mensagem = "A LETRA RECONHECIDA FOI A LETRA: J"
         elif y[6] == 1:
-            print("A LETRA RECONHECIDA FOI A LETRA: K")
+            mensagem = "A LETRA RECONHECIDA FOI A LETRA: K"
         else:
-            print("NÃO FOI POSSÍVEL RECONHECER NENHUMA LETRA")
+            mensagem = "NÃO FOI POSSÍVEL RECONHECER NENHUMA LETRA"
 
+        label = tkinter.Label(window, text=mensagem, font=('Arial', 14))
+        label.place(x=250, y=500)
 def submit_button_event():
     taxa =  float(input_taxa.get())
     tolerated_error = float(input_tolerated_error.get())
